@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send WhatsApp Messages</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/send.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+
+                <!-- Header Section -->
+                <div class="header-section">
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h1 class="page-title">WhatsApp Bulk Sender</h1>
+                    <p class="page-subtitle">Send messages to multiple contacts with live tracking</p>
+                </div>
+
+                <!-- Live Tracking Section - TOP PRIORITY -->
+                <div class="live-tracking">
+                    <div class="tracking-header">
+                        <h2 class="tracking-title">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Live Message Tracking
+                        </h2>
+                        <div class="tracking-status" id="trackingStatus">
+                            Ready to Send
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card" id="totalCard">
+                            <div class="stat-icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <div class="stat-number" id="totalCount">0</div>
+                            <div class="stat-label">Total Numbers</div>
+                        </div>
+
+                        <div class="stat-card" id="queueCard">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-number" id="queueCount">0</div>
+                            <div class="stat-label">In Queue</div>
+                        </div>
+
+                        <div class="stat-card" id="sentCard">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-number" id="sentCount">0</div>
+                            <div class="stat-label">Successfully Sent</div>
+                        </div>
+
+                        <div class="stat-card" id="failedCard">
+                            <div class="stat-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="stat-number" id="failedCount">0</div>
+                            <div class="stat-label">Failed</div>
+                        </div>
+
+                        <div class="stat-card" id="speedCard">
+                            <div class="stat-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="stat-number" id="speedCount">0</div>
+                            <div class="stat-label">Messages/Min</div>
+                        </div>
+                    </div>
+
+                    <!-- Live Console Log -->
+                    <div class="live-log" id="liveLog">
+                        <div class="log-entry info">
+                            <i class="fas fa-terminal me-2"></i>System ready for bulk messaging...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Form Section -->
+                    <div class="col-lg-8">
+                        <div class="form-section">
+                            <h3 class="form-title">
+                                <i class="fas fa-edit me-2"></i>
+                                Compose Message
+                            </h3>
+
+                            <form id="sendForm">
+                                <div class="mb-4">
+                                    <label for="numbers" class="form-label">
+                                        <i class="fas fa-users me-2"></i>Phone Numbers
+                                    </label>
+                                    <textarea class="form-control numbers-textarea" id="numbers"
+                                        placeholder="Enter phone numbers (one per line or comma separated)&#10;&#10;Example:&#10;+91 9876543210&#10;+91 9876543211&#10;9876543212"
+                                        required></textarea>
+                                    <div class="input-counter">
+                                        <span>
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Supports country codes and various formats
+                                        </span>
+                                        <span class="fw-bold">
+                                            <span id="numberCount">0</span> numbers detected
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="message" class="form-label">
+                                        <i class="fas fa-comment me-2"></i>Message Content
+                                    </label>
+                                    <textarea class="form-control message-input" id="message"
+                                        placeholder="Type your message here..." required></textarea>
+                                    <div class="input-counter">
+                                        <span>
+                                            <i class="fas fa-mobile-alt me-1"></i>
+                                            WhatsApp supports up to 65,536 characters
+                                        </span>
+                                        <span class="fw-bold">
+                                            <span id="charCount">0</span> characters
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="send-button" id="sendButton">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    Send Messages
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Message Preview Section -->
+                    <div class="col-lg-4">
+                        <div class="preview-section">
+                            <h3 class="preview-title">
+                                <i class="fas fa-eye me-2"></i>
+                                Message Preview
+                            </h3>
+
+                            <div class="message-preview" id="messagePreview">
+                                <div class="preview-empty">
+                                    Your message will appear here as you type...
+                                </div>
+                            </div>
+
+                            <div class="preview-stats">
+                                <div class="preview-stat">
+                                    <div class="preview-stat-number" id="previewCharCount">0</div>
+                                    <div class="preview-stat-label">Characters</div>
+                                </div>
+                                <div class="preview-stat">
+                                    <div class="preview-stat-number" id="previewWordCount">0</div>
+                                    <div class="preview-stat-label">Words</div>
+                                </div>
+                                <div class="preview-stat">
+                                    <div class="preview-stat-number" id="previewLineCount">0</div>
+                                    <div class="preview-stat-label">Lines</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/send.js"></script>
+
+</body>
+
+</html>

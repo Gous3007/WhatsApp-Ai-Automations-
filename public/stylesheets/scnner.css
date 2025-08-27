@@ -1,0 +1,307 @@
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .scanner-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanner-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #25D366, #128C7E);
+        }
+
+        .whatsapp-icon {
+            background: #25D366;
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .main-title {
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .qr-container {
+            background: #f8f9fa;
+            border: 3px dashed #e5e7eb;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .qr-container:hover {
+            border-color: #25D366;
+            background: #f0fff4;
+        }
+
+        .qr-placeholder {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .qr-container img {
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: zoomIn 0.5s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e5e7eb;
+            border-radius: 50%;
+            border-top-color: #25D366;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .step:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .step:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .step-icon {
+            background: #e5e7eb;
+            color: #6b7280;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-icon {
+            background: #25D366;
+            color: white;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        .connected-badge {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-50px);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.95);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -100%, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 100%, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translate3d(-100%, 0, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            to {
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .scanner-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .main-title {
+                font-size: 1.5rem;
+            }
+
+            .qr-container {
+                padding: 30px 20px;
+                min-height: 280px;
+            }
+
+            .step-indicators {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .whatsapp-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }

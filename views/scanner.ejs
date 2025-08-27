@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Scanner</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/scanner.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center" style="margin: auto;">
+            <div class="col-12">
+                <div class="scanner-container">
+                    <!-- WhatsApp Icon -->
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+
+                    <!-- Title -->
+                    <h1 class="main-title">Connect WhatsApp</h1>
+                    <p class="subtitle">Scan the QR code below with your WhatsApp mobile app to connect</p>
+
+                    <!-- Status Badge -->
+                    <div class="status-badge" id="statusBadge">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        Waiting for QR Code...
+                    </div>
+
+                    <!-- QR Container -->
+                    <div class="qr-container" id="qrBox">
+                        <div class="qr-placeholder">
+                            <div class="loading-spinner"></div>
+                            <div>Generating QR Code...</div>
+                        </div>
+                    </div>
+
+                    <!-- Step Indicators -->
+                    <div class="step-indicators">
+                        <div class="step active">
+                            <div class="step-icon">1</div>
+                            <span>Generate QR</span>
+                        </div>
+                        <div class="step" id="scanStep">
+                            <div class="step-icon">2</div>
+                            <span>Scan Code</span>
+                        </div>
+                        <div class="step" id="connectStep">
+                            <div class="step-icon">3</div>
+                            <span>Connect</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="footer-text">
+                        <i class="fas fa-mobile-alt me-2"></i>
+                        Open WhatsApp → Settings → Linked Devices → Link a Device
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/scanner.js"></script>
+    <script>
+      
+    </script>
+</body>
+
+</html>
