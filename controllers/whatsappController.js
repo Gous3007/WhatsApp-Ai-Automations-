@@ -10,7 +10,7 @@ const initWhatsApp = (io) => {
     ioInstance = io;
 
     client = new Client({
-        authStrategy: new LocalAuth({ clientId: "multiDeviceBot" }),
+        authStrategy: new LocalAuth({ clientId: "bot1" }),
         puppeteer: { headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] }
     });
 

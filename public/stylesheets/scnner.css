@@ -21,6 +21,7 @@
             width: 100%;
             position: relative;
             overflow: hidden;
+            margin: auto;
         }
 
         .scanner-container::before {
